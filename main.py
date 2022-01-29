@@ -1,7 +1,5 @@
 #import of openCV library
 import cv2
-import numpy as np
-import matplotlib.pyplot as plt
 
 #-----For jpeg image------#
 
@@ -14,7 +12,7 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 cv2.imwrite('./resources/jpeg/treesImageGray.png', gray)
 
 #The Gaussian filter is a low-pass filter that removes the high-frequency components are reduced
-#we apply this function to ?
+#we apply this function to reduce the noise
 """
 GaussianBlur(src, ksize, sigmaX)
 src: input image
@@ -78,7 +76,7 @@ cv2.drawContours(rgb, cnt, -1, (0, 255, 0), 2)
 cv2.imwrite('./resources/jpeg/treesImageDrawContours.png', rgb)
 
 #visualize the result : the number of the trees in the image
-print('Nombre d\'arbres dans l\'image est : ', len(cnt))
+#print('Nombre d\'arbres dans l\'image est : ', len(cnt))
 
 
 
@@ -91,7 +89,7 @@ image = cv2.imread('./resources/treesImage.png')
 #convert image to grayscale
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 # save the "gray" image to ./resources/jpeg
-cv2.imwrite('./resources/png/treesImageGray.png', gray)
+cv2.imwrite('./resources/png/treesImageGray2.png', gray)
 
 """
 GaussianBlur(src, ksize, sigmaX)
@@ -103,7 +101,7 @@ sigmaX: Kernel standard deviation along X-axis (horizontal direction).
 """
 blur = cv2.GaussianBlur(gray, (11, 11), 0)
 # save the "blur" image to ./resources/jpeg
-cv2.imwrite('./resources/png/treesImageBlur.png', blur)
+cv2.imwrite('./resources/png/treesImageBlur2.png', blur)
 
 """
 thresholding the image with the threshold(blur, 55, 255, cv2.CHAIN_APPROX_NONE) function
@@ -114,14 +112,14 @@ thresholding the image with the threshold(blur, 55, 255, cv2.CHAIN_APPROX_NONE) 
 """
 ret, gray = cv2.threshold(blur, 80, 255, cv2.CHAIN_APPROX_NONE)
 # save the "gray" image to ./resources/jpeg
-cv2.imwrite('./resources/png/treesImageBinary.png', gray)
+cv2.imwrite('./resources/png/treesImageBinary2.png', gray)
 
 #creating the structuring element, an ellipse
 kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (4, 4))
 #Morphological closing
 closing = cv2.morphologyEx(gray, cv2.MORPH_CLOSE, kernel)
 # save the "closing" image to ./resources/jpeg
-cv2.imwrite('./resources/png/treesImageClosing.png', closing)
+cv2.imwrite('./resources/png/treesImageClosing2.png', closing)
 
 """
 find the contours with the function findContours(closing.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -134,7 +132,7 @@ find the contours with the function findContours(closing.copy(), cv2.RETR_EXTERN
 rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 #Draw boundaries
 cv2.drawContours(rgb, cnt, -1, (0, 255, 0), 2)
-cv2.imwrite('./resources/png/treesImageDrawContours.png', rgb)
+cv2.imwrite('./resources/png/treesImageDrawContours2.png', rgb)
 
 #visualize the result : the number of the trees in the image
 print('Nombre d\'arbres dans l\'image est : ', len(cnt))
